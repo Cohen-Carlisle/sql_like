@@ -2,7 +2,7 @@ defmodule SqlLikeTest do
   use ExUnit.Case
   doctest SqlLike
 
-  test "greets the world" do
-    assert SqlLike.hello() == :world
+  test "sanitizes \\, % and _" do
+    assert SqlLike.sanitize("%as_df\\") == "\\%as\\_df\\\\"
   end
 end

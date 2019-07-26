@@ -1,6 +1,6 @@
 # SqlLike
 
-**TODO: Add description**
+Sanitizes SQL strings intended to be used in SQL LIKE statements.
 
 ## Installation
 
@@ -18,4 +18,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/sql_like](https://hexdocs.pm/sql_like).
-
