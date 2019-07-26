@@ -4,9 +4,11 @@ defmodule SqlLike do
   """
 
   @doc """
-  This function finds all occurrences of the characters `\\`, `%`, and `_` in
-  a string, returning a new string with the `\\` character inserted before each
-  occurrence.
+  This function finds all occurrences of the escape character, `%`, and `_`, in
+  a string, returning a new string with the escape character inserted before
+  each occurrence.
+
+  The escape character defaults to `\\` but may be provided.
 
   This is done to escape the special characters in the SQL string and protect
   against denial of service attacks that target unsanitized LIKE queries. See
@@ -21,9 +23,12 @@ defmodule SqlLike do
       iex> SqlLike.sanitize("%as_df\\\\")
       "\\\\%as\\\\_df\\\\\\\\"
 
+      iex> SqlLike.sanitize("%as_df!", "!")
+      "!%as!_df!!"
+
   """
-  @spec sanitize(String.t()) :: String.t()
-  def sanitize(string) when is_binary(string) do
-    String.replace(string, ["\\", "%", "_"], fn match -> "\\#{match}" end)
+  @spec sanitize(String.t(), String.t()) :: String.t()
+  def sanitize(string, escape \\ "\\") when is_binary(string) and is_binary(escape) do
+    String.replace(string, [escape, "%", "_"], fn match -> escape <> match end)
   end
 end
